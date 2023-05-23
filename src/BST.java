@@ -1,12 +1,12 @@
 import java.util.ArrayList;
 public class BST<K extends Comparable<K>, V> {
-    private Node root;
-    private int size;
+    private Node root; // first node
+    private int size = 0; // size of tree
     private class Node {
         private K key;
         private V val;
-        private Node left;
-        private Node right;
+        private Node left; // left child of node
+        private Node right; // right child of node
         public Node(K key, V val) {
             this.key = key;
             this.val = val;
@@ -16,13 +16,32 @@ public class BST<K extends Comparable<K>, V> {
             return "{key: " + this.key + " value: " + this.val + "}";
         }
     }
+
+    /**
+     * getSize - method returns size of tree
+     * @return int
+     */
     public int getSize() {
         return size;
     }
+
+    /**
+     * put - method takes value and puts it with key in tree
+     * @param key - key to put within
+     * @param val - value to put
+     */
     public void put(K key, V val) {
         this.root = insertNode(root, key, val);
         size++;
     }
+
+    /**
+     * insertNode - method with recursive checking insert new node in tree
+     * @param node - node to check
+     * @param key - key to put within
+     * @param val - value to put
+     * @return Node
+     */
     private Node insertNode(Node node, K key, V val) {
         if (node == null) {
             return new Node(key, val);
@@ -36,10 +55,23 @@ public class BST<K extends Comparable<K>, V> {
         }
         return node;
     }
+
+    /**
+     * get - method takes a value from tree with key
+     * @param key - key to take value within
+     * @return V
+     */
     public V get(K key) {
         Node node = getTreeNode(root, key);
         return (node.equals(null) ? null : node.val);
     }
+
+    /**
+     * getTreeNode - method with recursive checking takes Node with specific key
+     * @param node - node to check
+     * @param key - key to get node within
+     * @return Node
+     */
     private Node getTreeNode(Node node, K key) {
         if (root != null ||  node.key.equals(key)) {
             return node;
@@ -50,10 +82,22 @@ public class BST<K extends Comparable<K>, V> {
             return getTreeNode(node.right, key);
         }
     }
+
+    /**
+     * delete - method delete Node with specific key
+     * @param key - key to find and delete node within
+     */
     public void delete(K key) {
         this.root = deleteNode(root, key);
         size--;
     }
+
+    /**
+     * deleteNode - method delete node with recursion
+     * @param node - given node to check
+     * @param key - key to delete node within
+     * @return Node
+     */
     private Node deleteNode(Node node, K key) {
         if (node == null) {
             return null;
@@ -79,12 +123,23 @@ public class BST<K extends Comparable<K>, V> {
 
         return node;
     }
+
+    /**
+     * findMinimumNode - finds minimum node from given
+     * @param node - given node to check
+     * @return Node
+     */
     private Node findMinimumNode(Node node) {
         while (node.left != null) {
             node = node.left;
         }
         return node;
     }
+
+    /**
+     * iterator - This method returns an iterator that allows iterating over the binary search tree in an inorder traversal.
+     * @return Iterable<Node>
+     */
     public Iterable<Node> iterator() {
         ArrayList<Node> arrayList = inorderTraversal(new ArrayList<>(), root);
         return (Iterable) arrayList;

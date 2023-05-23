@@ -148,9 +148,19 @@ public class BST<K extends Comparable<K>, V> {
         }
         return list;
     }
+
+    /**
+     * height - method checking tree and returns height of it
+     * @return int - height of binary search tree
+     */
     public int height() {
         return heightOfTree(root) - 1; // -1 because teacher said that we don't need to sum root
     }
+    /**
+     * heightOfTree - additional recursive method to check all nodes in tree
+     * @param node - given node to check
+     * @return int - height of binary search tree
+     */
     private int heightOfTree(Node node) {
         if (node == null) { // base case
             return 0;

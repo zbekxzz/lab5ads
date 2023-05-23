@@ -16,7 +16,6 @@ public class BST<K extends Comparable<K>, V> {
             return "{key: " + this.key + " value: " + this.val + "}";
         }
     }
-
     /**
      * getSize - method returns size of tree
      * @return int
@@ -24,7 +23,6 @@ public class BST<K extends Comparable<K>, V> {
     public int getSize() {
         return size;
     }
-
     /**
      * put - method takes value and puts it with key in tree
      * @param key - key to put within
@@ -34,7 +32,6 @@ public class BST<K extends Comparable<K>, V> {
         this.root = insertNode(root, key, val);
         size++;
     }
-
     /**
      * insertNode - method with recursive checking insert new node in tree
      * @param node - node to check
@@ -55,7 +52,6 @@ public class BST<K extends Comparable<K>, V> {
         }
         return node;
     }
-
     /**
      * get - method takes a value from tree with key
      * @param key - key to take value within
@@ -65,7 +61,6 @@ public class BST<K extends Comparable<K>, V> {
         Node node = getTreeNode(root, key);
         return (node.equals(null) ? null : node.val);
     }
-
     /**
      * getTreeNode - method with recursive checking takes Node with specific key
      * @param node - node to check
@@ -82,7 +77,6 @@ public class BST<K extends Comparable<K>, V> {
             return getTreeNode(node.right, key);
         }
     }
-
     /**
      * delete - method delete Node with specific key
      * @param key - key to find and delete node within
@@ -91,7 +85,6 @@ public class BST<K extends Comparable<K>, V> {
         this.root = deleteNode(root, key);
         size--;
     }
-
     /**
      * deleteNode - method delete node with recursion
      * @param node - given node to check
@@ -123,7 +116,6 @@ public class BST<K extends Comparable<K>, V> {
 
         return node;
     }
-
     /**
      * findMinimumNode - finds minimum node from given
      * @param node - given node to check
@@ -135,7 +127,6 @@ public class BST<K extends Comparable<K>, V> {
         }
         return node;
     }
-
     /**
      * iterator - This method returns an iterator that allows iterating over the binary search tree in an inorder traversal.
      * @return Iterable<Node>
@@ -156,5 +147,22 @@ public class BST<K extends Comparable<K>, V> {
             list.add(inorderTraversal(list, node.right));
         }
         return list;
+    }
+    public int height() {
+        return heightOfTree(root) - 1; // -1 because teacher said that we don't need to sum root
+    }
+    private int heightOfTree(Node node) {
+        if (node == null) { // base case
+            return 0;
+        } else {
+            int leftHeight = heightOfTree(node.left);
+            int rightHeight = heightOfTree(node.right);
+            if (leftHeight > rightHeight) {
+                return leftHeight + 1;
+            } else {
+                return rightHeight + 1;
+            }
+        }
+
     }
 }
